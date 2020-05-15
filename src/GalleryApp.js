@@ -1,4 +1,6 @@
 import React from 'react';
+import Header from './Components/Header';
+import Footer from './Components/Footer';
 
 class GalleryApp extends React.Component {
 
@@ -40,11 +42,8 @@ class GalleryApp extends React.Component {
     } else {
       return (
         <div className="gallery-app">
-          <header className="gallery-app-header">
-            <h1>
-              Edit <code>src/App.js</code> and save to reload.
-            </h1>
-          </header>
+
+          <Header heading={'Gallery list'} />
 
           <div className="gallery-app-body">
             <div className="listed-images">
@@ -60,9 +59,8 @@ class GalleryApp extends React.Component {
             </div>
           </div>
 
-          <footer>
-            <p>&copy; Jonathhan L Theobald. 2020</p>
-          </footer>
+          <Footer footerDetails={'Jonathan L Theobald. 2020'} />
+
         </div>
       );
     }
