@@ -1,0 +1,19 @@
+/* structure  and theme */
+.gallery-app {
+  text-align: left;
+  width: 960px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+
+  &-header,
+  &-body {
+    min-height: 20vh;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+
+  &-link {
+    color: #61dafb;
+  }
+}

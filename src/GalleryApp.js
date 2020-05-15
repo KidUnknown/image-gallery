@@ -1,7 +1,5 @@
 import React from 'react';
 
-import './GalleryApp.css';
-
 class GalleryApp extends React.Component {
 
   constructor(props) {
