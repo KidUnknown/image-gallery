@@ -9,8 +9,7 @@ class GalleryApp extends React.Component {
     this.state = {
       error: null,
       isLoaded: false,
-      items: [],
-      logo: "/static/media/logo.5d5d9eef.svg"
+      items: []
     }
   }
 
@@ -34,7 +33,7 @@ class GalleryApp extends React.Component {
   }
 
   render() {
-    const { error, isLoaded, items, logo } = this.state;
+    const { error, isLoaded, items } = this.state;
 
     if (error) {
       return <div>Error: {error.message}</div>;
@@ -42,37 +41,33 @@ class GalleryApp extends React.Component {
       return <div>Loading...</div>;
     } else {
       return (
-        <div>
-          <img src={logo} className="gallery-app-logo" alt="logo"></img>
-          <ul>
-            {items.map(item => (
-              <li key={item.id}>
-                {item.id} {item.albumId} {item.title} {item.thumbnailUrl}
-              </li>
-            ))}
-          </ul>
+        <div className="gallery-app">
+          <header className="gallery-app-header">
+            <h1>
+              Edit <code>src/App.js</code> and save to reload.
+            </h1>
+          </header>
+
+          <div className="gallery-app-body">
+            <div className="listed-images">
+              <ul>
+                {items.map(item => (
+                  <li key={item.id}>
+                    <span>Album: {item.albumId}</span> <span>item: {item.id}</span> 
+                    <p>{item.title}</p> 
+                    <img src={item.thumbnailUrl} alt='some alt' className='thumb' />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <footer>
+            <p>&copy; Jonathhan L Theobald. 2020</p>
+          </footer>
         </div>
       );
     }
-
-    // return (
-    //   <div className="gallery-app">
-    //     <header className="gallery-app-header">
-    //     <img src={logo} className="gallery-app-logo" alt="logo" />
-    //       <p>
-    //         Edit <code>src/App.js</code> and save to reload.
-    //       </p>
-    //     </header>
-    //     <div className="gallery-app-body">
-    //       <div className="listed-images">
-
-    //       </div>
-    //     </div>
-    //     <footer>
-    //       <p>&copy; KidUnknown. 2020</p>
-    //     </footer>
-    //   </div>
-    // );
   }
 }
 
