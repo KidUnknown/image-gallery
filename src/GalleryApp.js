@@ -15,21 +15,21 @@ class GalleryApp extends React.Component {
 
   componentDidMount() {
     fetch("https://jsonplaceholder.typicode.com/photos")
-      .then(res => res.json())
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            items: result
-          });
-        },
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          });
-        }
-      )
+    .then(res => res.json())
+    .then(
+      (result) => {
+        this.setState({
+          isLoaded: true,
+          items: result
+        });
+      },
+      (error) => {
+        this.setState({
+          isLoaded: true,
+          error
+        });
+      }
+    )
   }
 
   render() {
@@ -38,12 +38,12 @@ class GalleryApp extends React.Component {
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
-      return <div>Loading...</div>;
+      return <div className='loader'></div>
     } else {
       return (
         <div className="gallery-app">
 
-          <Header heading={'Gallery list'} />
+          <Header headingProp={'Gallery list'} />
 
           <div className="gallery-app-body">
             <div className="listed-images">
@@ -51,15 +51,14 @@ class GalleryApp extends React.Component {
                 {items.map(item => (
                   <li key={item.id}>
                     <span>Album: {item.albumId}</span> <span>item: {item.id}</span> 
-                    <p>{item.title}</p> 
-                    <img src={item.thumbnailUrl} alt='some alt' className='thumb' />
+                    <img src={item.thumbnailUrl} alt={item.title} className='thumb' />
                   </li>
                 ))}
               </ul>
             </div>
           </div>
 
-          <Footer footerDetails={'Jonathan L Theobald. 2020'} />
+          <Footer footerProp={'Jonathan L Theobald. 2020'} />
 
         </div>
       );
