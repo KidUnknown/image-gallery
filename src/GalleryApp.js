@@ -22,7 +22,8 @@ class GalleryApp extends React.Component {
           isLoaded: true,
           items: result
         });
-      },
+      }
+    ).catch(
       (error) => {
         this.setState({
           isLoaded: true,
@@ -36,32 +37,30 @@ class GalleryApp extends React.Component {
     const { error, isLoaded, items } = this.state;
 
     if (error) return <div>Error: {error.message}</div>;
-      return <div>Error: {error.message}</div>;
     if (!isLoaded) return <div className='loader'></div>;
-      return <div className='loader'></div>
-      return (
-        <div className="gallery-app">
+    
+    return (
+      <div className="gallery-app">
 
-          <Header headingProp={'Gallery list'} />
+        <Header headingProp={'Gallery list'} />
 
-          <div className="gallery-app-body">
-            <div className="listed-images">
-              <ul>
-                {items.map(item => (
-                  <li key={item.id}>
-                    <span>Album: {item.albumId}</span> <span>item: {item.id}</span> 
-                    <img src={item.thumbnailUrl} alt={item.title} className='thumb' />
-                  </li>
-                ))}
-              </ul>
-            </div>
+        <div className="gallery-app-body">
+          <div className="listed-images">
+            <ul>
+              {items.map(item => (
+                <li key={item.id}>
+                  <span>Album: {item.albumId}</span> <span>item: {item.id}</span> 
+                  <img src={item.thumbnailUrl} alt={item.title} className='thumb' />
+                </li>
+              ))}
+            </ul>
           </div>
-
-          <Footer footerProp={'Jonathan L Theobald. 2020'} />
-
         </div>
-      );
-    }
+
+        <Footer footerProp={'Jonathan L Theobald. 2020'} />
+
+      </div>
+    );
   }
 }
 
