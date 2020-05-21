@@ -39,7 +39,6 @@ class GalleryApp extends React.Component {
       return <div>Error: {error.message}</div>;
     if (!isLoaded) return <div className='loader'></div>;
       return <div className='loader'></div>
-    } else {
       return (
         <div className="gallery-app">
 
