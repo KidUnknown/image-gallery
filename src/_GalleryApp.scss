@@ -6,9 +6,9 @@
   flex-direction: column;
   margin: auto;
 
-  &-header,
-  &-body,
-  &-footer {
+  &__header,
+  &__body,
+  &__footer {
     min-height: 20vh;
     font-size: calc(10px + 2vmin);
     color: white;

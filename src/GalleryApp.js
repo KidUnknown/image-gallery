@@ -6,14 +6,29 @@ class GalleryApp extends Component {
 
   constructor(props) {
     super(props);
+    
+    props = {
+      headerEl: {
+        headerTitle: 'Photo gallery', 
+        headerClass: '__header', 
+        headerRole: 'header'
+      },
+      footerEl: {
+        footerTitle: '&copy; Jonathan L Theobald', 
+        footerClass: '__footer'
+      }
+    }
+
     this.state = {
       error: null,
       isLoaded: false,
-      items: []
+      items: [],
+      headerEl: props.headerEl,
+      footerEl: props.footerEl
     }
   }
 
-  fetchAlbums() {
+  fetchPhotos() {
     fetch("https://jsonplaceholder.typicode.com/photos", {mode: 'cors'})
     .then(res => res.json())
     .then(
@@ -34,34 +49,35 @@ class GalleryApp extends Component {
   }
 
   componentDidMount() {
-    this.fetchAlbums();
+    this.fetchPhotos();
   }
 
   render() {
-    const { error, isLoaded, items } = this.state;
+    const { error, isLoaded, items, headerEl, footerEl } = this.state;
+    //const {headerEl, footerEl} = this.props;
 
     if (error) return <div>Error: {error.message}</div>;
     if (!isLoaded) return <div className='loader'></div>;
 
     return (
       <div className="gallery-app">
-        <Header headingProp={'Gallery list'} />
-        <div className="gallery-app-body">
+        <Header headerEl={headerEl} />
+        <div className="gallery-app__body">
           <div className="listed-images">
             <ul>
               {items.map(item => {
                 const {albumId, id, title, thumbnailUrl, url} = item;
                 return(
                   <li key={id}>
-                    <span>Album: {albumId}</span> <span>item: {id}</span> 
-                    <img src={thumbnailUrl} alt={title} data-uri={url} className='thumb' />
+                    <span>Album: {albumId}</span> <span>item: {id}</span>
+                    <img src={thumbnailUrl} alt={title} data-uri-large={url} className='thumb' />
                   </li>
                 )}
               )}
             </ul>
           </div>
         </div>
-        <Footer footerProp={'Jonathan L Theobald. 2020'} />
+        <Footer footerEl={footerEl} />
       </div>
     );
   }
