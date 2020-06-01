@@ -29,7 +29,7 @@ class AlbumApp extends Component {
   }
 
   fetchAlbums() {
-    fetch("https://jsonplaceholder.typicode.com/albums", {mode: 'no-cors'})
+    fetch("https://jsonplaceholder.typicode.com/albums", {mode: 'cors'})
     .then(res => res.json())
     .then(
       (result) => {

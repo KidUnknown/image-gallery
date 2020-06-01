@@ -29,7 +29,7 @@ class GalleryApp extends Component {
   }
 
   fetchPhotos() {
-    fetch("https://jsonplaceholder.typicode.com/photos", {mode: 'no-cors'})
+    fetch("https://jsonplaceholder.typicode.com/photos", {mode: 'cors'})
     .then(res => res.json())
     .then(
       (result) => {
