@@ -6,15 +6,15 @@
     sans-serif;
   // custom vars
   --code-font: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-  --text-primary: ;
-  --text-secondary: ;
-  --bg-primary: ;
-  --bg-secondary: ;
+  --text-primary: #a5a5a5;
+  --text-secondary: #767676;
+  --bg-primary: #282c34;
+  --bg-secondary: #4d4d4d;
 }
 
 /* Base styles */
 body {
-  background-color: #282c34;
+  background-color: var(--bg-primary);
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -22,4 +22,12 @@ body {
 
 code {
   font-family: var(--code-font);
+}
+
+h1, h2, h3, h4, h5 {
+  color: var(--text-secondary);
+}
+
+p, span {
+  color: var(--text-primary);
 }
