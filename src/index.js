@@ -1,20 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './main.scss';
-import GalleryApp from './GalleryApp';
-import AlbumApp from './AlbumApp';
+import Routes from './_Routes.js';
+import { BrowserRouter as Router } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
-import { Router, Route, browserHistory } from '@version/react-router-v3';
 
 ReactDOM.render(
 
-  <Router history={browserHistory}>
-    <Route path="/" component={GalleryApp}>
-      <Route path="/gallery" component={GalleryApp} />
-    </Route>
-    <Route path="/photos" component={AlbumApp}>
-      <Route path="/photos" component={AlbumApp} />
-    </Route>
+  <Router>
+    <Routes />
   </Router>,
 
   document.getElementById('root')
