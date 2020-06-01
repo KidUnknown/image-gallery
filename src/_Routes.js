@@ -6,13 +6,15 @@ import './main.scss';
 
 const Routes = () => {
   return (
-    <Switch>
-      <Route exact path="/gallery" component={GalleryApp} />
-      <Route exact path="/">
-        <Redirect to="/gallery" />
-      </Route>
-      <Route path="/photos" component={AlbumApp} />
-    </Switch>
+    <div className="app">
+      <Switch>
+        <Route exact path="/photos" component={GalleryApp} />
+        <Route exact path="/">
+          <Redirect to="/photos" />
+        </Route>
+        <Route path="/albums" component={AlbumApp} />
+      </Switch>
+    </div>
   )
 }
 

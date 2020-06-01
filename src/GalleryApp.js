@@ -29,7 +29,7 @@ class GalleryApp extends Component {
   }
 
   fetchPhotos() {
-    fetch("https://jsonplaceholder.typicode.com/photos", {mode: 'cors'})
+    fetch("https://jsonplaceholder.typicode.com/photos", {mode: 'no-cors'})
     .then(res => res.json())
     .then(
       (result) => {
@@ -56,7 +56,7 @@ class GalleryApp extends Component {
     const { error, isLoaded, items, headerEl, footerEl } = this.state;
 
     if (error) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
-    if (!isLoaded) return <div className='loader'></div>;
+    if (!isLoaded) return <div className="loader"></div>;
 
     return (
       <div className="gallery-app">
@@ -68,7 +68,7 @@ class GalleryApp extends Component {
                 const {albumId, id, title, thumbnailUrl, url} = item;
                 return(
                   <li key={id}>
-                    <span>Album: {albumId}</span> <span>item: {id}</span>
+                    <span>Album: {albumId}</span> <br/> <span>item: {id}</span>
                     <img src={thumbnailUrl} alt={title} data-uri-large={url} className="thumb" />
                   </li>
                 )}

@@ -29,7 +29,7 @@ class AlbumApp extends Component {
   }
 
   fetchAlbums() {
-    fetch("https://jsonplaceholder.typicode.com/albums", {mode: 'cors'})
+    fetch("https://jsonplaceholder.typicode.com/albums", {mode: 'no-cors'})
     .then(res => res.json())
     .then(
       (result) => {
@@ -55,8 +55,8 @@ class AlbumApp extends Component {
   render() {
     const { error, isLoaded, items, headerEl, footerEl } = this.state;
 
-    if (error) return <div>Error: {error.message}</div>;
-    if (!isLoaded) return <div className='loader'></div>;
+    if (error) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
+    if (!isLoaded) return <div className="loader"></div>;
 
     return (
       <div className="album-app">
@@ -65,7 +65,7 @@ class AlbumApp extends Component {
           <div className="listed-images">
             <ul>
               {items.map(item => {
-                const {userId, id, title} = item;
+                const { id, userId, title } = item;
                 return(
                   <li key={id}>
                     <p>Album: {id} </p>
