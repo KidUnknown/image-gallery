@@ -2,12 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './main.scss';
 import GalleryApp from './GalleryApp';
+import AlbumApp from './AlbumApp';
 import * as serviceWorker from './serviceWorker';
+import { Router, Route, browserHistory } from '@version/react-router-v3';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <GalleryApp />
-  </React.StrictMode>,
+
+  <Router history={browserHistory}>
+    <Route path="/" component={GalleryApp}>
+      <Route path="/gallery" component={GalleryApp} />
+    </Route>
+    <Route path="/photos" component={AlbumApp}>
+      <Route path="/photos" component={AlbumApp} />
+    </Route>
+  </Router>,
+
   document.getElementById('root')
 );
 

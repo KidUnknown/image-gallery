@@ -2,14 +2,14 @@ import React, {Component} from 'react';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
 
-class GalleryApp extends Component {
+class AlbumApp extends Component {
 
   constructor(props) {
     super(props);
     
     props = {
       headerEl: {
-        headerTitle: 'Photo gallery', 
+        headerTitle: 'Albums listed', 
         headerClass: '__header', 
         headerRole: 'header'
       },
@@ -28,8 +28,8 @@ class GalleryApp extends Component {
     }
   }
 
-  fetchPhotos() {
-    fetch("https://jsonplaceholder.typicode.com/photos", {mode: 'cors'})
+  fetchAlbums() {
+    fetch("https://jsonplaceholder.typicode.com/albums", {mode: 'cors'})
     .then(res => res.json())
     .then(
       (result) => {
@@ -49,27 +49,27 @@ class GalleryApp extends Component {
   }
 
   componentDidMount() {
-    this.fetchPhotos();
+    this.fetchAlbums();
   }
 
   render() {
     const { error, isLoaded, items, headerEl, footerEl } = this.state;
 
-    if (error) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
+    if (error) return <div>Error: {error.message}</div>;
     if (!isLoaded) return <div className='loader'></div>;
 
     return (
-      <div className="gallery-app">
+      <div className="album-app">
         <Header headerEl={headerEl} />
-        <div className="gallery-app__body">
+        <div className="album-app__body">
           <div className="listed-images">
             <ul>
               {items.map(item => {
-                const {albumId, id, title, thumbnailUrl, url} = item;
+                const {userId, id, title} = item;
                 return(
                   <li key={id}>
-                    <span>Album: {albumId}</span> <span>item: {id}</span>
-                    <img src={thumbnailUrl} alt={title} data-uri-large={url} className="thumb" />
+                    <p>Album: {id} </p>
+                    <p>title: {title} user: {userId} </p>
                   </li>
                 )}
               )}
@@ -82,4 +82,4 @@ class GalleryApp extends Component {
   }
 }
 
-export default GalleryApp;
+export default AlbumApp;
