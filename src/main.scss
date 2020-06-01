@@ -1,0 +1,11 @@
+/* Index contains :root variables and base styles */
+@import 'Index';
+
+/* Structure and theme */
+@import 'GalleryApp';
+@import 'AlbumApp';
+
+/* HOC loader throbber */
+@import 'HOC/LoaderHOC';
+
+/* Typography */

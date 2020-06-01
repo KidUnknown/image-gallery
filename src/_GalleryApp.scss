@@ -1,0 +1,42 @@
+/* structure  and theme */
+.gallery-app {
+  text-align: left;
+  width: 960px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+
+  &__header,
+  &__body,
+  &__footer {
+    min-height: 10vh;
+    font-size: calc(10px + 2vmin);
+  }
+
+  &-link {
+    color: #61dafb;
+  }
+}
+
+.listed-images {
+  ul {
+    margin-top: 0;
+    padding: 20px;
+    background-color: var(--bg-secondary);
+    li {
+      width: 25%;
+      display: inline-block;
+      padding: 0;
+      vertical-align: top;
+    }
+  }
+}
+
+.error {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+}
