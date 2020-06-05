@@ -1,85 +1,32 @@
-import React, {Component} from 'react';
-import Header from './Components/Header';
-import Footer from './Components/Footer';
+import React from 'react';
+import useFetch from './Services/_UseFetch';
 
-class AlbumApp extends Component {
+function AlbumApp() {
 
-  constructor(props) {
-    super(props);
-    
-    props = {
-      headerEl: {
-        headerTitle: 'Albums listed', 
-        headerClass: '__header', 
-        headerRole: 'header'
-      },
-      footerEl: {
-        footerTitle: 'Jonathan L Theobald', 
-        footerClass: '__footer'
-      }
-    }
+  const res = useFetch('https://jsonplaceholder.typicode.com/albums', {});
 
-    this.state = {
-      error: null,
-      isLoaded: false,
-      items: [],
-      headerEl: props.headerEl,
-      footerEl: props.footerEl
-    }
-  }
+  if (res.error) return <div className="error"><h3>Error:</h3> <p>{res.error.message}</p></div>;
+  if (!res.items) return <div className="loader"></div>;
 
-  fetchAlbums() {
-    fetch("https://jsonplaceholder.typicode.com/albums", {mode: 'cors'})
-    .then(res => res.json())
-    .then(
-      (result) => {
-        this.setState({
-          isLoaded: true,
-          items: result
-        });
-      }
-    ).catch(
-      (error) => {
-        this.setState({
-          isLoaded: false,
-          error
-        });
-      }
-    )
-  }
-
-  componentDidMount() {
-    this.fetchAlbums();
-  }
-
-  render() {
-    const { error, isLoaded, items, headerEl, footerEl } = this.state;
-
-    if (error) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
-    if (!isLoaded) return <div className="loader"></div>;
-
-    return (
-      <div className="album-app">
-        <Header headerEl={headerEl} />
-        <div className="album-app__body">
-          <div className="listed-images">
-            <ul>
-              {items.map(item => {
-                const { id, userId, title } = item;
-                return(
-                  <li key={id}>
-                    <p>Album: {id} </p>
-                    <p>title: {title} user: {userId} </p>
-                  </li>
-                )}
+  return (
+    <div className="album-app">
+      <div className="album-app__body">
+        <div className="listed-images">
+          <ul>
+            {res.items.map(item => {
+              const { id, userId, title } = item;
+              return(
+                <li key={id}>
+                  <p>Album: {id} </p>
+                  <p>title: {title} user: {userId} </p>
+                </li>
               )}
-            </ul>
-          </div>
+            )}
+          </ul>
         </div>
-        <Footer footerEl={footerEl} />
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default AlbumApp;
