@@ -3,17 +3,17 @@ import useFetch from './Services/_UseFetch';
 
 function GalleryApp() {
 
-  const res = useFetch('https://jsonplaceholder.typicode.com/photos', {});
+  const {items, error} = useFetch('https://jsonplaceholder.typicode.com/photos', {});
 
-  if (res.error) return <div className="error"><h3>Error:</h3> <p>{res.error.message}</p></div>;
-  if (!res.items) return <div className="loader"></div>;
+  if (error) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
+  if (!items) return <div className="loader"></div>;
 
   return (
     <div className="gallery-app">
       <div className="gallery-app__body">
         <div className="listed-images">
           <ul>
-            {res.items.map(item => {
+            {items.map(item => {
               const {albumId, id, title, thumbnailUrl, url} = item;
               return(
                 <li key={id}>
