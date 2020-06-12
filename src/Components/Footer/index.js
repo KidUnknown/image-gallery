@@ -1,8 +1,7 @@
 
 import React from 'react';
 
-const Footer = (props) => {
-  const {footerTitle, footerClass} = props.footerEl;
+const Footer = ({ footerTitle, footerClass }) => {
   
   return(
     <footer className={`gallery-app${footerClass}`}>
