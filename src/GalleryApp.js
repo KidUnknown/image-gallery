@@ -6,30 +6,28 @@ class GalleryApp extends Component {
 
   constructor(props) {
     super(props);
-    
-    props = {
-      headerEl: {
-        headerTitle: 'Photo gallery', 
-        headerClass: '__header', 
-        headerRole: 'header'
-      },
-      footerEl: {
-        footerTitle: 'Jonathan L Theobald', 
-        footerClass: '__footer'
-      }
-    }
 
     this.state = {
       error: null,
       isLoaded: false,
-      items: [],
-      headerEl: props.headerEl,
-      footerEl: props.footerEl
+      items: []
     }
+
+    // props = {
+    //   headerEl: {
+    //     headerTitle: 'Photo gallery', 
+    //     headerClass: '__header', 
+    //     headerRole: 'header'
+    //   },
+    //   footerEl: {
+    //     footerTitle: 'Jonathan L Theobald', 
+    //     footerClass: '__footer'
+    //   }
+    // }
   }
 
   fetchPhotos() {
-    fetch("https://jsonplaceholder.typicode.com/photos", {mode: 'cors'})
+    fetch("https://jsonplaceholder.typicode.com/photos")
     .then(res => res.json())
     .then(
       (result) => {
@@ -53,14 +51,20 @@ class GalleryApp extends Component {
   }
 
   render() {
-    const { error, isLoaded, items, headerEl, footerEl } = this.state;
+    const { error, isLoaded, items } = this.state;
 
     if (error) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
     if (!isLoaded) return <div className="loader"></div>;
 
     return (
       <div className="gallery-app">
-        <Header headerEl={headerEl} />
+
+        <Header 
+          headerTitle={'Photo gallery'} 
+          headerClass={'__header'} 
+          headerRole={'header'} 
+        />
+
         <div className="gallery-app__body">
           <div className="listed-images">
             <ul>
@@ -76,7 +80,12 @@ class GalleryApp extends Component {
             </ul>
           </div>
         </div>
-        <Footer footerEl={footerEl} />
+
+        <Footer 
+          footerTitle={'Jonathan L Theobald'} 
+          footerClass={'__footer'} 
+        />
+        
       </div>
     );
   }
