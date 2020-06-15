@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useMemo } from 'react';
+import UseFetch from './Services/_UseFetch';
 
 export default function App() {
 
@@ -19,10 +20,7 @@ export default function App() {
   useEffect(() => {
     console.log('Resource changed');
 
-    fetch(`https://jsonplaceholder.typicode.com/${resourceType}`)
-      .then(response => response.json())
-      .then(json => setItems(json))
-      .catch(error => setError(error))
+    const {items, error, isLoaded} = UseFetch(`https://jsonplaceholder.typicode.com/${resourceType}`)
 
     return () => {
       console.log('return from resource change');
@@ -30,7 +28,7 @@ export default function App() {
   }, [resourceType])
 
   if (error) return <div className='error'>Error: {error.message}</div>
-  if (!items) return <div className='loader'>Loading...</div>
+  if (!isLoaded) return <div className='loader'>Loading...</div>
 
   return (
     <div className='users-app'>

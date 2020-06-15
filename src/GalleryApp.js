@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
+import UseFetch from './Services/_UseFetch';
 
 class GalleryApp extends Component {
 
@@ -9,52 +10,19 @@ class GalleryApp extends Component {
 
     this.state = {
       error: null,
-      isLoaded: false,
       items: []
     }
-
-    // props = {
-    //   headerEl: {
-    //     headerTitle: 'Photo gallery', 
-    //     headerClass: '__header', 
-    //     headerRole: 'header'
-    //   },
-    //   footerEl: {
-    //     footerTitle: 'Jonathan L Theobald', 
-    //     footerClass: '__footer'
-    //   }
-    // }
-  }
-
-  fetchPhotos() {
-    fetch("https://jsonplaceholder.typicode.com/photos")
-    .then(res => res.json())
-    .then(
-      (result) => {
-        this.setState({
-          isLoaded: true,
-          items: result
-        });
-      }
-    ).catch(
-      (error) => {
-        this.setState({
-          isLoaded: false,
-          error
-        });
-      }
-    )
   }
 
   componentDidMount() {
-    this.fetchPhotos();
+    UseFetch('https://jsonplaceholder.typicode.com/photos');
   }
 
   render() {
-    const { error, isLoaded, items } = this.state;
+    const { error, items } = this.state;
 
     if (error) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
-    if (!isLoaded) return <div className="loader"></div>;
+    if (!items) return <div className="loader"></div>;
 
     return (
       <div className="gallery-app">

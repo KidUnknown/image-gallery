@@ -1,66 +1,38 @@
 import React, {Component} from 'react';
-import Header from './Components/Header';
-import Footer from './Components/Footer';
+import UseFetch from './Services/_UseFetch';
 
 class AlbumApp extends Component {
 
   constructor(props) {
     super(props);
-    
-    props = {
-      headerEl: {
-        headerTitle: 'Albums listed', 
-        headerClass: '__header', 
-        headerRole: 'header'
-      },
-      footerEl: {
-        footerTitle: 'Jonathan L Theobald', 
-        footerClass: '__footer'
-      }
-    }
 
     this.state = {
-      error: null,
       isLoaded: false,
-      items: [],
-      headerEl: props.headerEl,
-      footerEl: props.footerEl
+      error: null,
+      items: []
     }
   }
 
-  fetchAlbums() {
-    fetch("https://jsonplaceholder.typicode.com/albums", {mode: 'cors'})
-    .then(res => res.json())
-    .then(
-      (result) => {
-        this.setState({
-          isLoaded: true,
-          items: result
-        });
-      }
-    ).catch(
-      (error) => {
-        this.setState({
-          isLoaded: false,
-          error
-        });
-      }
-    )
-  }
+  // componentDidMount() {
+  //   //this.UseFetch('https://jsonplaceholder.typicode.com/albums');
+  //   const res = UseFetch('https://jsonplaceholder.typicode.com/albums');
 
-  componentDidMount() {
-    this.fetchAlbums();
-  }
+  //   const {items, isLoaded, error} = res;
+  // }
 
   render() {
-    const { error, isLoaded, items, headerEl, footerEl } = this.state;
+
+    //const {items, error, isLoaded} = UseFetch('https://jsonplaceholder.typicode.com/albums');
+
+    const res = UseFetch('https://jsonplaceholder.typicode.com/albums');
+
+    const {items, isLoaded, error} = res;
 
     if (error) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
     if (!isLoaded) return <div className="loader"></div>;
 
     return (
       <div className="album-app">
-        <Header headerEl={headerEl} />
         <div className="album-app__body">
           <div className="listed-images">
             <ul>
@@ -76,7 +48,6 @@ class AlbumApp extends Component {
             </ul>
           </div>
         </div>
-        <Footer footerEl={footerEl} />
       </div>
     );
   }
