@@ -1,8 +1,7 @@
 
 import React from 'react';
 
-const Header = (props) => {
-  const {headerTitle, headerClass, headerRole} = props.headerEl;
+const Header = ({ headerTitle, headerClass, headerRole }) => {
 
   return(
     <header role={headerRole} className={`gallery-app${headerClass}`}>

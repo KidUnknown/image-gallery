@@ -20,6 +20,7 @@ function GalleryApp() {
                   <span>Album: {albumId}</span> <br/> <span>item: {id}</span>
                   <img src={thumbnailUrl} alt={title} data-uri-large={url} className="thumb" />
                 </li>
+
               )}
             )}
           </ul>
