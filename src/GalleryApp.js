@@ -1,94 +1,33 @@
-import React, {Component} from 'react';
-import Header from './Components/Header';
-import Footer from './Components/Footer';
+import React from 'react';
+import useFetch from './Services/_UseFetch';
 
-class GalleryApp extends Component {
+function GalleryApp() {
 
-  constructor(props) {
-    super(props);
+  const {items, error} = useFetch('https://jsonplaceholder.typicode.com/photos', {});
 
-    this.state = {
-      error: null,
-      isLoaded: false,
-      items: []
-    }
+  if (error) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
+  if (!items) return <div className="loader"></div>;
 
-    // props = {
-    //   headerEl: {
-    //     headerTitle: 'Photo gallery', 
-    //     headerClass: '__header', 
-    //     headerRole: 'header'
-    //   },
-    //   footerEl: {
-    //     footerTitle: 'Jonathan L Theobald', 
-    //     footerClass: '__footer'
-    //   }
-    // }
-  }
+  return (
+    <div className="gallery-app">
+      <div className="gallery-app__body">
+        <div className="listed-images">
+          <ul>
+            {items.map(item => {
+              const {albumId, id, title, thumbnailUrl, url} = item;
+              return(
+                <li key={id}>
+                  <span>Album: {albumId}</span> <br/> <span>item: {id}</span>
+                  <img src={thumbnailUrl} alt={title} data-uri-large={url} className="thumb" />
+                </li>
 
-  fetchPhotos() {
-    fetch("https://jsonplaceholder.typicode.com/photos")
-    .then(res => res.json())
-    .then(
-      (result) => {
-        this.setState({
-          isLoaded: true,
-          items: result
-        });
-      }
-    ).catch(
-      (error) => {
-        this.setState({
-          isLoaded: false,
-          error
-        });
-      }
-    )
-  }
-
-  componentDidMount() {
-    this.fetchPhotos();
-  }
-
-  render() {
-    const { error, isLoaded, items } = this.state;
-
-    if (error) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
-    if (!isLoaded) return <div className="loader"></div>;
-
-    return (
-      <div className="gallery-app">
-
-        <Header 
-          headerTitle={'Photo gallery'} 
-          headerClass={'__header'} 
-          headerRole={'header'} 
-        />
-
-        <div className="gallery-app__body">
-          <div className="listed-images">
-            <ul>
-              {items.map(item => {
-                const {albumId, id, title, thumbnailUrl, url} = item;
-                return(
-                  <li key={id}>
-                    <span>Album: {albumId}</span> <br/> <span>item: {id}</span>
-                    <img src={thumbnailUrl} alt={title} data-uri-large={url} className="thumb" />
-                  </li>
-                )}
               )}
-            </ul>
-          </div>
+            )}
+          </ul>
         </div>
-
-        <Footer 
-          footerTitle={'Jonathan L Theobald'} 
-          footerClass={'__footer'} 
-        />
-        
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default GalleryApp;
