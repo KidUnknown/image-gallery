@@ -1,6 +1,7 @@
 import React from 'react';
 import GalleryApp from './GalleryApp';
 import AlbumApp from './AlbumApp';
+import UsersApp from './UsersApp';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import './main.scss';
 
@@ -13,6 +14,7 @@ const Routes = () => {
           <Redirect to="/photos" />
         </Route>
         <Route path="/albums" component={AlbumApp} />
+        <Route path="/users" component={UsersApp} />
       </Switch>
     </div>
   )
