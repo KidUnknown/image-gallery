@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import UseFetch from './Services/_UseFetch';
 
 class AlbumApp extends Component {
 
@@ -13,20 +12,28 @@ class AlbumApp extends Component {
     }
   }
 
-  // componentDidMount() {
-  //   //this.UseFetch('https://jsonplaceholder.typicode.com/albums');
-  //   const res = UseFetch('https://jsonplaceholder.typicode.com/albums');
+  fetchDataWithFetchAPI = (URL) => {
+    this.setState({...this.state, isLoaded: true});
+    fetch(URL)
+      .then(response => response.json())
+      .then(result => {
+          this.setState({items: result, isLoaded: true})
+      })
+      .catch(error => {
+          console.log(error);
+          this.setState({...this.state, isLoaded: false});
+      });
+  };
+  
+  UseFetch = this.fetchDataWithFetchAPI;
 
-  //   const {items, isLoaded, error} = res;
-  // }
+  componentDidMount() {
+    this.UseFetch('https://jsonplaceholder.typicode.com/albums', {});
+  }
 
   render() {
 
-    //const {items, error, isLoaded} = UseFetch('https://jsonplaceholder.typicode.com/albums');
-
-    const res = UseFetch('https://jsonplaceholder.typicode.com/albums');
-
-    const {items, isLoaded, error} = res;
+    const {items, isLoaded, error} = this.state;
 
     if (error) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
     if (!isLoaded) return <div className="loader"></div>;

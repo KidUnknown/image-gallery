@@ -1,26 +1,18 @@
 
-function useFetch(error, items, isLoaded, url) {
-    let currentComponent = this;
 
-    fetch(url)
-    .then(res => res.json())
-    .then(
-      (result) => {
-        currentComponent.setState({
-          isLoaded: true,
-          items: result
-        });
-      }
-    ).catch(
-      (error) => {
-        currentComponent.setState({
-          isLoaded: false,
-          error
-        });
-      }
-    )
+const fetchDataWithFetchAPI = (URL) => {
+  this.setState({...this.state, isLoaded: true});
+  fetch(URL)
+    .then(response => response.json())
+    .then(result => {
+        this.setState({data: result, isLoaded: false})
+    })
+    .catch(e => {
+        console.log(e);
+        this.setState({...this.state, isLoaded: false});
+    });
+};
 
-    return {error, items, isLoaded, url}
-  }
+let useFetch = fetchDataWithFetchAPI;
 
-  export default useFetch;
+export default useFetch;
