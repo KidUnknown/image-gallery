@@ -79,8 +79,6 @@ class UsersApp extends Component {
                     <span>username: {username}</span> <br/> 
                     <span>website: {website}</span> <br/></p>
                   </li>
-
-                  
                 )}
               )}
             </ul>
@@ -89,7 +87,8 @@ class UsersApp extends Component {
               <div id='albumlist'>
                 <div className="close">X</div>
                 <Album userId={this.viewAlbumsByUser} />
-              </div>}
+              </div>
+            }
 
           </div>
         </div>

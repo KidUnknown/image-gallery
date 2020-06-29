@@ -34,7 +34,12 @@ p, span {
 }
 
 a:link {
-  color: whhite;
+  color: white;
+
+  &:hover {
+    color: white;
+    background-color: var(--bg-secondary);
+  }
 }
 
 nav {
@@ -49,6 +54,8 @@ nav {
       a {
         font-size: 2em;
         color: var(--text-primary);
+        text-decoration: none;
+        padding: 5px 15px
       }
     }
   }
