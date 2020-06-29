@@ -12,7 +12,7 @@ class UsersApp extends Component {
       isLoaded: false,
       error: null,
       data: [],
-      userAlbums: []
+      isEmptyState: true
     }
 
     this.handleClick = this.handleClick.bind(this);
@@ -39,10 +39,11 @@ class UsersApp extends Component {
 
   viewAlbumsByUser = (id) => {
     console.log('user id clicked: ', id);
-    // this.UseFetch('https://jsonplaceholder.typicode.com/albums', {});
-    // this.setState({
-    //   userAlbums: data
-    // })
+    this.setState({
+      ...this.state,
+      isEmptyState: false,
+      isAddTripState: true
+    })
   }
 
   componentDidMount() {
