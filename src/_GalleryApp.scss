@@ -1,6 +1,6 @@
 /* structure  and theme */
 .gallery-app,
-.users-app {
+.user-app {
   text-align: left;
   width: 960px;
   display: flex;
@@ -19,18 +19,36 @@
   }
 }
 
-.listed-images {
+.listed-images,
+.listed-users,
+.listed-albums {
   ul {
     margin-top: 0;
     padding: 20px;
     background-color: var(--bg-secondary);
-    li {
+    li,
+    .user-item {
       width: 25%;
       display: inline-block;
       padding: 0;
       vertical-align: top;
+
+      &:hover {
+        background-color: var(--bg-secondary-hover);
+        cursor: pointer;
+      }
     }
   }
+}
+
+#abumlist.closed {
+  height: 0;
+
+}
+
+#albumlist.open {
+  height: 200px;
+  background-color: var(--bg-secondary);
 }
 
 .error {

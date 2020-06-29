@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
+import Album from './Album';
 
 class UsersApp extends Component {
 
@@ -10,8 +11,11 @@ class UsersApp extends Component {
     this.state = {
       isLoaded: false,
       error: null,
-      items: []
+      data: [],
+      userAlbums: []
     }
+
+    this.handleClick = this.handleClick.bind(this);
   }
 
   UseFetch = (URL) => {
@@ -19,8 +23,8 @@ class UsersApp extends Component {
     fetch(URL)
       .then(response => response.json())
       .then(result => {
-        //console.log('Items: ', result);
-        this.setState({items: result, isLoaded: true})
+        //console.log('userItems: ', result);
+        this.setState({data: result, isLoaded: true})
       })
       .catch(error => {
         console.log(error);
@@ -28,12 +32,25 @@ class UsersApp extends Component {
       });
   };
 
+  handleClick = (id) => {
+    //console.log('Clicked item: ', id);
+    this.viewAlbumsByUser(id);
+  }
+
+  viewAlbumsByUser = (id) => {
+    console.log('user id clicked: ', id);
+    // this.UseFetch('https://jsonplaceholder.typicode.com/albums', {});
+    // this.setState({
+    //   userAlbums: data
+    // })
+  }
+
   componentDidMount() {
     this.UseFetch('https://jsonplaceholder.typicode.com/users', {});
   }
 
   render() {
-    const { error, items, isLoaded } = this.state;
+    const { error, data, isLoaded, userAlbums } = this.state;
 
     if (error) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
     if (!isLoaded) return <div className="loader"></div>;
@@ -48,21 +65,27 @@ class UsersApp extends Component {
         />
 
         <div className="user-app__body">
-          <div className="listed-images">
+          <div className="listed-users">
             <ul>
-              {items.map(item => {
-                const {id, name, username, email, phone, website} = item;
+              {data.map((item, k) => {
+
+                const {id, name, username, website} = item;
+
                 return(
-                  <li key={id}>
+                  <li key={k} className={`user-item-${id}`} onClick={() => this.handleClick(id)} >
                     <p>Name: {name} <br/> 
                     <span>username: {username}</span> <br/> 
-                    <span>email: {email}</span> <br/>
-                    <span>phone: {phone}</span> <br/>
                     <span>website: {website}</span> <br/></p>
                   </li>
                 )}
               )}
             </ul>
+
+            <div id='albumlist' className='closed'>
+              <p>User created albums here</p>
+              <Album name={userAlbums.username} AlbumId={userAlbums.id} title={userAlbums.title} />
+            </div>
+
           </div>
         </div>
 

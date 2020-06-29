@@ -18,3 +18,10 @@
     color: #61dafb;
   }
 }
+
+#albumlist {
+  position: relative;
+  .loader {
+    clear: both;
+  }
+}
