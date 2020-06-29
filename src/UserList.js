@@ -1,22 +1,24 @@
 import React from 'react';
 import UseFetch from './Services/_UseFetch';
 
-function  UsersApp() {
+const UserList = ({error, isLoaded, resourceType}) => {
 
-  const {items, error} = UseFetch('https://jsonplaceholder.typicode.com/users');
+  const {items} = UseFetch(`https://jsonplaceholder.typicode.com/${resourceType}`, {});
+  //console.log('Items', items);
 
   if (error) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
-  if (!items) return <div className="loader">Loading...</div>;
+  if (!isLoaded) return <div className="loader">Loading...</div>;
 
   return (
     <div className="user-app">
       <div className="user-app__body">
         <div className="listed-images">
           <ul>
-            {items.map(item => {
+            {JSON.stringify(items)}
+            {/* {items.map((item, k) => {
               const { id, name, username, email, website } = item;
               return(
-                <li key={id}>
+                <li key={k}>
                   <p>
                     <span>Name: {name}</span> <br/>
                     <span>Id: {id}</span> <br/>
@@ -26,7 +28,7 @@ function  UsersApp() {
                   </p>
                 </li>
               )}
-            )}
+            )} */}
           </ul>
         </div>
       </div>
@@ -34,4 +36,4 @@ function  UsersApp() {
   );
 }
 
-export default UsersApp;
+export default UserList;

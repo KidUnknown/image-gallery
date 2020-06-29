@@ -1,7 +1,7 @@
 import React from 'react';
 import useFetch from './Services/_UseFetch';
 
-function GalleryApp() {
+const Photos = () => {
 
   const {items, error} = useFetch('https://jsonplaceholder.typicode.com/photos', {});
 
@@ -30,4 +30,4 @@ function GalleryApp() {
   );
 }
 
-export default GalleryApp;
+export default Photos;

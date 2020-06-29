@@ -1,9 +1,9 @@
 import React from 'react';
 import UseFetch from './Services/_UseFetch';
 
-function AlbumApp() {
+const AlbumList = () => {
 
-  const {items, error} = UseFetch('https://jsonplaceholder.typicode.com/albums');
+  const {items, error} = UseFetch('https://jsonplaceholder.typicode.com/albums', {});
 
   if (error) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
   if (!items) return <div className="loader">Loading...</div>;
@@ -29,4 +29,4 @@ function AlbumApp() {
   );
 }
 
-export default AlbumApp;
+export default AlbumList;
