@@ -42,7 +42,8 @@ class UsersApp extends Component {
     this.setState({
       ...this.state,
       isEmptyState: false,
-      isAddTripState: true
+      isAddTripState: true,
+      userId: id
     })
   }
 
@@ -51,7 +52,7 @@ class UsersApp extends Component {
   }
 
   render() {
-    const { error, data, isLoaded, userAlbums } = this.state;
+    const { error, data, isLoaded } = this.state;
 
     if (error) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
     if (!isLoaded) return <div className="loader"></div>;
@@ -78,14 +79,17 @@ class UsersApp extends Component {
                     <span>username: {username}</span> <br/> 
                     <span>website: {website}</span> <br/></p>
                   </li>
+
+                  
                 )}
               )}
             </ul>
 
-            <div id='albumlist' className='closed'>
-              <p>User created albums here</p>
-              <Album name={userAlbums.username} AlbumId={userAlbums.id} title={userAlbums.title} />
-            </div>
+            {this.state.isAddTripState && 
+              <div id='albumlist'>
+                <div className="close">X</div>
+                <Album userId={this.viewAlbumsByUser} />
+              </div>}
 
           </div>
         </div>

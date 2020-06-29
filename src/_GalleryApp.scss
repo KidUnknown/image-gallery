@@ -1,5 +1,6 @@
 /* structure  and theme */
 .gallery-app,
+.album-user,
 .user-app {
   text-align: left;
   width: 960px;
@@ -58,4 +59,11 @@
   -webkit-transform: translateX(-50%) translateY(-50%);
   -ms-transform: translateX(-50%) translateY(-50%);
   transform: translateX(-50%) translateY(-50%);
+}
+
+.close {
+  display: block;
+  height: auto;
+  width: auto;
+  color: var(--text-primary);
 }
