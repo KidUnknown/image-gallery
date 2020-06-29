@@ -42,7 +42,7 @@ class GalleryApp extends Component {
       <div className="gallery-app">
 
         <Header 
-          headerTitle={'Photo gallery'} 
+          headerTitle={'Photo list'} 
           headerClass={'__header'} 
           headerRole={'header'} 
         />
