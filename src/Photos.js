@@ -1,16 +1,16 @@
 import React from 'react';
 import useFetch from './Services/_UseFetch';
 
-const Photos = () => {
+const Photos = ({error, isLoaded, themeStyles}) => {
 
-  const {items, error} = useFetch('https://jsonplaceholder.typicode.com/photos', {});
+  const {items} = useFetch('https://jsonplaceholder.typicode.com/photos', {});
 
   if (error) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
-  if (!items) return <div className="loader"></div>;
+  if (!isLoaded) return <div className="loader"></div>;
 
   return (
-    <div className="gallery-app">
-      <div className="gallery-app__body">
+    <div className="photo-app" style={themeStyles}>
+      <div className="photo-app__body">
         <div className="listed-images">
           <ul>
             {items.map(item => {
@@ -20,7 +20,6 @@ const Photos = () => {
                   <span>Album: {albumId}</span> <br/> <span>item: {id}</span>
                   <img src={thumbnailUrl} alt={title} data-uri-large={url} className="thumb" />
                 </li>
-
               )}
             )}
           </ul>

@@ -5,18 +5,21 @@ const useFetch = (url, options) => {
   const [items, setItems] = React.useState([]);
   const [error, setError] = React.useState(null);
 
+  const UsingFetch = () => {
+    fetch(url, options)
+    .then(response => response.json())
+    .then(items => {
+      setItems(items);
+    })
+    .catch(error => {
+      console.log('Error: ', error);
+      setError(error);
+    })
+  };
+  
   React.useEffect(() => {
-    const fetchItems = async () => {
-      try {
-        const res = await fetch(url, options);
-        const items = await res.json();
-        setItems(items);
-      } catch (error) {
-        setError(error);
-      }
-    };
-    fetchItems();
-  }, [url, options]);
+    UsingFetch();
+  });
 
   return { items, error };
 }

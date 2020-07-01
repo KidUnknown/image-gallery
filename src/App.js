@@ -10,7 +10,6 @@ export default function App() {
   const [items, setItems] = useState([]);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(true);
-
   const themeStyles = useMemo(() => {
     return {
       backgroundColor: dark ? 'black' : 'white',
@@ -18,10 +17,7 @@ export default function App() {
     }
   }, [dark])
 
-  console.log('render');
-
   useEffect(() => {
-    console.log('Resource changed', resourceType);
     setItems(items);
     setError(error);
     setIsLoaded(isLoaded);
@@ -29,7 +25,7 @@ export default function App() {
     return () => {
       console.log('return from resource change');
     }
-  }, [resourceType, items, error, isLoaded]);
+  }, [items, error, isLoaded]);
 
   return (
     <div className='users-app'>
@@ -40,11 +36,11 @@ export default function App() {
         <button onClick={() => setDark(prevDark => !prevDark)}>Change theme</button>
 
         <h1 style={themeStyles}>{resourceType}</h1>
+        <UserList themeStyles={themeStyles} error={error} isLoaded={isLoaded} resourceType={resourceType}  items={items} />
         
-        {!isLoaded && <div>no data</div>}
-        {isLoaded && <UserList error={error} resourceType={resourceType} isLoaded={isLoaded} items={items} />}
-        {/* {isLoaded && <AlbumList error={error} resourceType={resourceType} isLoaded={isLoaded} items={items} />}
-        {isLoaded && <Photos error={error} resourceType={resourceType} isLoaded={isLoaded} items={items} />} */}
+        {/* <AlbumList themeStyles={themeStyles} error={error} isLoaded={isLoaded} resourceType={resourceType}  items={items} />
+        <Photos themeStyles={themeStyles} error={error} isLoaded={isLoaded} resourceType={resourceType}  items={items} /> */}
+
       </div>
     </div>
   )

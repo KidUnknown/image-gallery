@@ -1,7 +1,7 @@
 import React from 'react';
 import UseFetch from './Services/_UseFetch';
 
-const UserList = ({error, isLoaded, resourceType}) => {
+const UserList = ({error, isLoaded, themeStyles, resourceType}) => {
 
   const {items} = UseFetch(`https://jsonplaceholder.typicode.com/${resourceType}`, {});
 
@@ -9,15 +9,15 @@ const UserList = ({error, isLoaded, resourceType}) => {
   if (!isLoaded) return <div className="loader">Loading...</div>;
 
   return (
-    <div className="user-app">
+    <div className="user-app" style={themeStyles}>
       <div className="user-app__body">
-        <div className="listed-images">
+        <div className="listed-users">
           <ul>
             {JSON.stringify(items)}
-            {/* {items.map((item, k) => {
+            {/* {items.map((item) => {
               const { id, name, username, email, website } = item;
               return(
-                <li key={k}>
+                <li key={id}>
                   <p>
                     <span>Name: {name}</span> <br/>
                     <span>Id: {id}</span> <br/>
