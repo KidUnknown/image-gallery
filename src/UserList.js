@@ -4,7 +4,6 @@ import UseFetch from './Services/_UseFetch';
 const UserList = ({error, isLoaded, resourceType}) => {
 
   const {items} = UseFetch(`https://jsonplaceholder.typicode.com/${resourceType}`, {});
-  //console.log('Items', items);
 
   if (error) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
   if (!isLoaded) return <div className="loader">Loading...</div>;

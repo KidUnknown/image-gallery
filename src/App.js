@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
-//import UseFetch from './Services/_UseFetch';
 import UserList from './UserList';
+//import AlbumList from './AlbumList';
+//import Photos from './Photos';
 
 export default function App() {
 
@@ -20,9 +21,7 @@ export default function App() {
   console.log('render');
 
   useEffect(() => {
-
     console.log('Resource changed', resourceType);
-
     setItems(items);
     setError(error);
     setIsLoaded(isLoaded);
@@ -41,12 +40,11 @@ export default function App() {
         <button onClick={() => setDark(prevDark => !prevDark)}>Change theme</button>
 
         <h1 style={themeStyles}>{resourceType}</h1>
-
-        {/* {items.map(item => {
-          return <UserList key={item.id} UserItems={JSON.stringify(item)} />
-        })} */}
-
-        <UserList error={error} resourceType={resourceType} isLoaded={isLoaded} items={items} />
+        
+        {!isLoaded && <div>no data</div>}
+        {isLoaded && <UserList error={error} resourceType={resourceType} isLoaded={isLoaded} items={items} />}
+        {/* {isLoaded && <AlbumList error={error} resourceType={resourceType} isLoaded={isLoaded} items={items} />}
+        {isLoaded && <Photos error={error} resourceType={resourceType} isLoaded={isLoaded} items={items} />} */}
       </div>
     </div>
   )

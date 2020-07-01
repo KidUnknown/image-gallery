@@ -1,24 +1,25 @@
 import React from 'react';
 import UseFetch from './Services/_UseFetch';
 
-const AlbumList = () => {
+const AlbumList = ({error, isLoaded, resourceType}) => {
 
-  const {items, error} = UseFetch('https://jsonplaceholder.typicode.com/albums', {});
+  const {items} = UseFetch(`https://jsonplaceholder.typicode.com/${resourceType}`, {});
 
   if (error) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
-  if (!items) return <div className="loader">Loading...</div>;
+  if (!isLoaded) return <div className="loader">Loading...</div>;
 
   return (
-    <div className="album-app">
-      <div className="album-app__body">
+    <div className="user-app">
+      <div className="user-app__body">
         <div className="listed-images">
           <ul>
-            {items.map(item => {
-              const { id, userId, title } = item;
+            {/* {JSON.stringify(items)} */}
+            {items.map((item, k) => {
+              const {userId, id, title} = item;
               return(
-                <li key={id}>
-                  <p>Album: {id} </p>
-                  <p>title: {title} user: {userId} </p>
+                <li key={k}>
+                  <span>User Id: {userId}</span> <br/> <span>item Id: {id}</span>
+                  <span>Album Title: {title}</span>
                 </li>
               )}
             )}
