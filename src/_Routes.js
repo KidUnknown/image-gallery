@@ -9,12 +9,12 @@ const Routes = () => {
   return (
     <div className="app">
       <Switch>
-        <Route exact path="/photos" component={Photos} />
+        <Route exact path="/users" component={UserList} />
         <Route exact path="/">
-          <Redirect to="/photos" />
+          <Redirect to="/users" />
         </Route>
         <Route path="/albums" component={AlbumList} />
-        <Route path="/users" component={UserList} />
+        <Route path="/photos" component={Photos} />
       </Switch>
     </div>
   )

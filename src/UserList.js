@@ -13,8 +13,7 @@ const UserList = ({error, isLoaded, themeStyles, resourceType}) => {
       <div className="user-app__body">
         <div className="listed-users">
           <ul>
-            {JSON.stringify(items)}
-            {/* {items.map((item) => {
+            {items.map((item) => {
               const { id, name, username, email, website } = item;
               return(
                 <li key={id}>
@@ -27,7 +26,7 @@ const UserList = ({error, isLoaded, themeStyles, resourceType}) => {
                   </p>
                 </li>
               )}
-            )} */}
+            )}
           </ul>
         </div>
       </div>
