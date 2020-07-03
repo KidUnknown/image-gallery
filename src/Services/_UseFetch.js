@@ -7,19 +7,15 @@ const useFetch = (url, options) => {
 
   const UsingFetch = () => {
     fetch(url, options)
-    .then(response => response.json())
-    .then(items => {
-      setItems(items);
-    })
-    .catch(error => {
-      console.log('Error: ', error);
-      setError(error);
-    })
+      .then(response => response.json())
+      .then(items => setItems(items))
+      .catch(error => setError(error))
   };
   
   React.useEffect(() => {
     UsingFetch();
-  });
+    return () => {};
+  }, []);
 
   return { items, error };
 }

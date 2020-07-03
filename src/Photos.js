@@ -1,9 +1,9 @@
 import React from 'react';
 import useFetch from './Services/_UseFetch';
 
-const Photos = ({error, isLoaded, themeStyles, resourceType}) => {
+const Photos = ({isLoaded, themeStyles, resourceType}) => {
 
-  const {items} = useFetch(`https://jsonplaceholder.typicode.com/${resourceType}`, {});
+  const {items, error} = useFetch(`https://jsonplaceholder.typicode.com/${resourceType}`, {});
 
   if (error) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
   if (!isLoaded) return <div className="loader"></div>;

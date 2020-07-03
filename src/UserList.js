@@ -1,9 +1,9 @@
 import React from 'react';
 import UseFetch from './Services/_UseFetch';
 
-const UserList = ({error, isLoaded, themeStyles, resourceType}) => {
+const UserList = ({isLoaded, themeStyles, resourceType}) => {
 
-  const {items} = UseFetch(`https://jsonplaceholder.typicode.com/${resourceType}`, {});
+  const {items, error} = UseFetch(`https://jsonplaceholder.typicode.com/${resourceType}`, {});
 
   if (error) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
   if (!isLoaded) return <div className="loader">Loading...</div>;
