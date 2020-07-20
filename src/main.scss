@@ -1,10 +1,11 @@
 /* Index contains :root variables and base styles */
-@import 'Index';
+@import 'Index.scss';
 
 /* Structure and theme */
-@import 'GalleryApp';
-@import 'AlbumApp';
-@import 'UsersApp';
+@import 'App.scss';
+//@import 'GalleryApp.scss';
+//@import 'AlbumApp.scss';
+//@import 'UsersApp.scss';
 
 /* HOC loader throbber */
 @import 'HOC/LoaderHOC';

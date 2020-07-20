@@ -3,6 +3,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import UserList from './UserList';
 import AlbumList from './AlbumList';
 import Photos from './Photos';
+import './_Index.scss';
 
 export default function App() {
 
@@ -29,13 +30,13 @@ export default function App() {
   }, [items, error, isLoaded, resourceType]);
 
   return (
-    <div className='app'>
+    <div className='app' style={themeStyles}>
       <button onClick={() => setResourceType('users')}>Users</button>
       <button onClick={() => setResourceType('albums')}>Albums</button>
       <button onClick={() => setResourceType('photos')}>Photos</button>
       <button onClick={() => setDark(prevDark => !prevDark)}>Change theme</button>
 
-      <h1 style={themeStyles}>{resourceType}</h1>
+      <h1>{resourceType}</h1>
 
       <div className='app__body'>
         {resourceType === 'users' && <UserList themeStyles={themeStyles} error={error} isLoaded={isLoaded} resourceType={resourceType} items={items} />}
