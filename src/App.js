@@ -16,7 +16,7 @@ export default function App() {
       backgroundColor: dark ? 'black' : 'white',
       color: dark ? 'white' : 'black'
     }
-  }, [dark])
+  }, [dark]);
 
   useEffect(() => {
     setItems(items);
@@ -29,19 +29,18 @@ export default function App() {
   }, [items, error, isLoaded, resourceType]);
 
   return (
-    <div className='users-app'>
-      <div className='users-app__body'>
+    <div className='app'>
+      <button onClick={() => setResourceType('users')}>Users</button>
+      <button onClick={() => setResourceType('albums')}>Albums</button>
+      <button onClick={() => setResourceType('photos')}>Photos</button>
+      <button onClick={() => setDark(prevDark => !prevDark)}>Change theme</button>
 
-        <button onClick={() => setResourceType('users')}>Users</button>
-        <button onClick={() => setResourceType('albums')}>Albums</button>
-        <button onClick={() => setResourceType('photos')}>Photos</button>
-        <button onClick={() => setDark(prevDark => !prevDark)}>Change theme</button>
-        <h1 style={themeStyles}>{resourceType}</h1>
+      <h1 style={themeStyles}>{resourceType}</h1>
 
+      <div className='app__body'>
         {resourceType === 'users' && <UserList themeStyles={themeStyles} error={error} isLoaded={isLoaded} resourceType={resourceType} items={items} />}
         {resourceType === 'albums' && <AlbumList themeStyles={themeStyles} error={error} isLoaded={isLoaded} resourceType={resourceType} items={items} />}
         {resourceType === 'photos' && <Photos themeStyles={themeStyles} error={error} isLoaded={isLoaded} resourceType={resourceType} items={items} />}
-
       </div>
     </div>
   )

@@ -9,8 +9,8 @@ const Photos = ({isLoaded, themeStyles, resourceType}) => {
   if (!isLoaded) return <div className="loader"></div>;
 
   return (
-    <div className="photo-app" style={themeStyles}>
-      <div className="photo-app__body">
+    <div className="photo" style={themeStyles}>
+      <div className="photo__body">
         <div className="listed-images">
           <ul>
             {items.map(item => {

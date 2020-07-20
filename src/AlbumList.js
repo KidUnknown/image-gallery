@@ -9,8 +9,8 @@ const AlbumList = ({isLoaded, themeStyles, resourceType}) => {
   if (!isLoaded) return <div className="loader">Loading...</div>;
 
   return (
-    <div className="album-app" style={themeStyles}>
-      <div className="album-app__body">
+    <div className="album-list" style={themeStyles}>
+      <div className="album-list__body">
         <div className="listed-images">
           <ul>
             {items.map((item) => {

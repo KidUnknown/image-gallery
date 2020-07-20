@@ -9,8 +9,8 @@ const UserList = ({isLoaded, themeStyles, resourceType}) => {
   if (!isLoaded) return <div className="loader">Loading...</div>;
 
   return (
-    <div className="user-app" style={themeStyles}>
-      <div className="user-app__body">
+    <div className="user-list" style={themeStyles}>
+      <div className="user-list__body">
         <div className="listed-users">
           <ul>
             {items.map((item) => {
