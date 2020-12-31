@@ -23,7 +23,6 @@ class UsersApp extends Component {
     fetch(URL)
       .then(response => response.json())
       .then(result => {
-        //console.log('userItems: ', result);
         this.setState({data: result, isLoaded: true})
       })
       .catch(error => {
@@ -43,7 +42,7 @@ class UsersApp extends Component {
       ...this.state,
       isEmptyState: false,
       isAddTripState: true,
-      userId: id
+      selectedUser: id
     })
   }
 
@@ -75,9 +74,9 @@ class UsersApp extends Component {
 
                 return(
                   <li key={k} className={`user-item-${id}`} onClick={() => this.handleClick(id)} >
-                    <p>Name: {name} <br/> 
-                    <span>username: {username}</span> <br/> 
-                    <span>website: {website}</span> <br/></p>
+                    <p>Name:<br/> {name} <br/> 
+                    <span>username: <br/> {username}</span> <br/> 
+                    <span>website:<br/> {website}</span> <br/></p>
                   </li>
                 )}
               )}
@@ -86,7 +85,7 @@ class UsersApp extends Component {
             {this.state.isAddTripState && 
               <div id='albumlist'>
                 <div className="close">X</div>
-                <Album userId={this.viewAlbumsByUser} />
+                <Album userId={this.state.selectedUser} />
               </div>
             }
 

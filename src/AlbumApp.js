@@ -13,6 +13,7 @@ class AlbumApp extends Component {
       albumItems: []
     }
   }
+  
   // Fetch the list of albums
   fetchData = (URL) => {
     this.setState({...this.state, isLoaded: true});
@@ -26,6 +27,7 @@ class AlbumApp extends Component {
         this.setState({...this.state, isLoaded: false});
       });
   };
+
   // print the id of the clicked item, pass prop down to photo component
   handleClick = (id) => {
     console.log('Clicked Album: ', id);
