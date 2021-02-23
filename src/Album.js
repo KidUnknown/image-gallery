@@ -2,34 +2,22 @@ import React from 'react';
 
 const Album = (selectedUser) => {
 
-  const { error, isLoaded, userId } = selectedUser;
-  let albums = [];
+  const { usersId, albums } = selectedUser;
 
-  const fetchData = (URL) => {
-    fetch(URL)
-      .then(response => response.json())
-      .then(result => {
-        console.log('Results: ', result);
-        albums = result;
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
+  console.log('Albums: ', selectedUser.albums);
 
-  fetchData(`https://jsonplaceholder.typicode.com/albums?userId=${userId}`, {});
-
-  if (error) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
-  if (isLoaded) return <div className="loader"></div>;
+  // if (error) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
+  // if (!isLoaded) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
 
   return (
     <div className="listed-albums">
       <p>list of albums from user clicked to display in here.</p>
+      <p>{usersId}</p>
       <ul>
         {albums.map((album, k) => {
           //console.log('View: ', album);
 
-          const {userId, id, title} = album;
+          const { id, userId, title} = album;
 
           return(
             <li key={k} className={`album-item-${id}`}>

@@ -12,13 +12,13 @@ class UsersApp extends Component {
       isLoaded: false,
       error: null,
       data: [],
-      isEmptyState: true
+      isEmptyState: true,
+      albumList: []
     }
-
     this.handleClick = this.handleClick.bind(this);
   }
 
-  UseFetch = (URL) => {
+  UserFetch = (URL) => {
     this.setState({...this.state, isLoaded: true});
     fetch(URL)
       .then(response => response.json())
@@ -31,27 +31,53 @@ class UsersApp extends Component {
       });
   };
 
+  AlbumFetch = (URL) => {
+    this.setState({...this.state, isLoaded: true});
+    fetch(URL)
+      .then(response => response.json())
+      .then(result => {
+        this.setState({
+          ...this.state,
+          albumList: result, 
+          isLoaded: true, 
+          isAddTripState: true, 
+          isEmptyState: false 
+        });
+
+        // show the result
+        console.log('Fetch a result', this.state.albumList);
+      })
+      .catch(error => {
+        console.log(error);
+        this.setState({...this.state, isLoaded: false});
+      });
+  };
+
   handleClick = (id) => {
-    //console.log('Clicked item: ', id);
     this.viewAlbumsByUser(id);
+    this.AlbumFetch(`https://jsonplaceholder.typicode.com/albums?userId=${id}`, {});
   }
 
   viewAlbumsByUser = (id) => {
+    // get user id via click
     console.log('user id clicked: ', id);
     this.setState({
       ...this.state,
-      isEmptyState: false,
-      isAddTripState: true,
       selectedUser: id
     })
   }
 
   componentDidMount() {
-    this.UseFetch('https://jsonplaceholder.typicode.com/users', {});
+    console.log('Component Did Mount');
+    this.UserFetch('https://jsonplaceholder.typicode.com/users', {});
   }
 
+  // componentWillUnmount() {
+  //  console.log('Componant Will UnMount');
+  // }
+
   render() {
-    const { error, data, isLoaded } = this.state;
+    const { error, data, isLoaded, selectedUser, albumList } = this.state;
 
     if (error) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
     if (!isLoaded) return <div className="loader"></div>;
@@ -85,7 +111,7 @@ class UsersApp extends Component {
             {this.state.isAddTripState && 
               <div id='albumlist'>
                 <div className="close">X</div>
-                <Album userId={this.state.selectedUser} />
+                <Album usersId={selectedUser} albums={albumList} />
               </div>
             }
 
