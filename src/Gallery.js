@@ -6,26 +6,26 @@ const Gallery = (selectedAlbum) => {
   
   let pictures = [];
 
-  const fetchData = (URL) => {
-    fetch(URL)
-      .then(response => response.json())
-      .then(result => {
-        console.log('Results: ', result);
-        pictures = result;
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  };
+  // const fetchData = (URL) => {
+  //   fetch(URL)
+  //     .then(response => response.json())
+  //     .then(result => {
+  //       console.log('Results: ', result);
+  //       pictures = result;
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // };
 
-  fetchData(`https://jsonplaceholder.typicode.com/photos?albumId=${albumId}`, {});
+  //fetchData(`https://jsonplaceholder.typicode.com/photos?albumId=${albumId}`, {});
 
-  if (error) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
-  if (!isLoaded) return <div className="loader"></div>;
+  // if (error) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
+  // if (!isLoaded) return <div className="loader"></div>;
 
   return (
     <div className="listed-albums">
-      <p>{userId.id}list of albums from user clicked to display in here.</p>
+      <p>List of images from album</p>
       <ul>
         {pictures.map((image, k) => {
           //console.log('View: ', album);

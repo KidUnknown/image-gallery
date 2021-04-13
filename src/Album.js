@@ -1,24 +1,15 @@
 import React from 'react';
 
 const Album = (selectedUser) => {
-
-  const { usersId, albums } = selectedUser;
-
-  console.log('Albums: ', selectedUser.albums);
-
-  // if (error) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
-  // if (!isLoaded) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
+  const { albums } = selectedUser;
 
   return (
     <div className="listed-albums">
-      <p>list of albums from user clicked to display in here.</p>
-      <p>{usersId}</p>
       <ul>
         {albums.map((album, k) => {
-          //console.log('View: ', album);
 
           const { id, userId, title} = album;
-
+          
           return(
             <li key={k} className={`album-item-${id}`}>
               <p>Title: {title} <br/> 
@@ -27,9 +18,14 @@ const Album = (selectedUser) => {
             </li>
           )}
         )}
-
-        <li>sssssssss-o-sssssssss</li>
       </ul>
+
+      {/* {albums.isAddTripState && 
+          <div id='imagelist'>
+            <div className="close">X</div>
+            <Gallery usersId={selectedUser} albums={albumList} />
+          </div>
+        } */}
     </div>
   );
 }

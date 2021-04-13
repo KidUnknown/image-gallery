@@ -13,7 +13,8 @@ class UsersApp extends Component {
       error: null,
       data: [],
       isEmptyState: true,
-      albumList: []
+      albumList: [],
+      imageList: []
     }
     this.handleClick = this.handleClick.bind(this);
   }
@@ -43,9 +44,8 @@ class UsersApp extends Component {
           isAddTripState: true, 
           isEmptyState: false 
         });
-
         // show the result
-        console.log('Fetch a result', this.state.albumList);
+        //console.log('Fetch album result', this.state.albumList);
       })
       .catch(error => {
         console.log(error);
@@ -53,28 +53,61 @@ class UsersApp extends Component {
       });
   };
 
+  // ImageFetch = (URL) => {
+  //   this.setState({...this.state, isLoaded: true});
+  //   fetch(URL)
+  //     .then(response => response.json())
+  //     .then(result => {
+  //       this.setState({
+  //         ...this.state,
+  //         imageList: result, 
+  //         isLoaded: true
+  //       });
+  //       // show the result
+  //       console.log('Fetch image result', this.state.imageList);
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //       this.setState({...this.state, isLoaded: false});
+  //     });
+  // };
+
   handleClick = (id) => {
     this.viewAlbumsByUser(id);
     this.AlbumFetch(`https://jsonplaceholder.typicode.com/albums?userId=${id}`, {});
   }
 
+  closeBtn = () =>  {
+    this.setState({isAddTripState: false});
+  }
+
+  // handleImageClick = (id) => {
+  //   this.viewImagesByUser(id);
+  //   this.ImageFetch(`https://jsonplaceholder.typicode.com/potos?userId=${imageList.id}`, {});
+  // }
+
   viewAlbumsByUser = (id) => {
     // get user id via click
-    console.log('user id clicked: ', id);
+    //console.log('user id clicked: ', id);
     this.setState({
       ...this.state,
       selectedUser: id
     })
   }
 
+  // viewImagesByUser = (id) => {
+  //   // get user id via click
+  //   console.log('Album id clicked: ', id);
+  //   this.setState({
+  //     ...this.state,
+  //     selectedAlbum: id
+  //   })
+  // }
+
   componentDidMount() {
-    console.log('Component Did Mount');
+    //console.log('Component Did Mount');
     this.UserFetch('https://jsonplaceholder.typicode.com/users', {});
   }
-
-  // componentWillUnmount() {
-  //  console.log('Componant Will UnMount');
-  // }
 
   render() {
     const { error, data, isLoaded, selectedUser, albumList } = this.state;
@@ -110,7 +143,7 @@ class UsersApp extends Component {
 
             {this.state.isAddTripState && 
               <div id='albumlist'>
-                <div className="close">X</div>
+                <div className="close" onClick={() => this.closeBtn()}>X</div>
                 <Album usersId={selectedUser} albums={albumList} />
               </div>
             }
