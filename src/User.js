@@ -8,7 +8,7 @@ const Album = (selectedUser, props) => {
       <ul>
         {albums.map((album, k) => {
 
-          const { id, userId, title} = album;
+          const { id, userId, title } = album;
           
           return(
             <li key={k} className={`album-item-${id}`} onClick={() => props.albumClick}>

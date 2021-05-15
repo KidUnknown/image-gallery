@@ -42,12 +42,21 @@
   }
 }
 
-#abumlist.closed {
+#albumlist.closed {
   height: 0;
 
 }
 
 #albumlist {
+  height: 200px;
+  background-color: var(--bg-secondary);
+}
+
+#gallerylist.closed {
+  height: 0;
+}
+
+#gallerylist {
   height: 200px;
   background-color: var(--bg-secondary);
 }
