@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
-//import Album from './Album';
-
 class UsersApp extends Component {
 
   constructor(props) {
@@ -18,7 +16,7 @@ class UsersApp extends Component {
       selectedAlbum: null,
       selectedUser: null
     }
-    this.handleClick = this.handleClick.bind(this);
+    this.handleUserClick = this.handleUserClick.bind(this);
     this.handleAlbumClick = this.handleAlbumClick.bind(this);
   }
 
@@ -27,7 +25,8 @@ class UsersApp extends Component {
     fetch(URL)
       .then(response => response.json())
       .then(result => {
-        this.setState({data: result, isLoaded: true})
+        this.setState({data: result, isLoaded: true});
+        console.log('Fetch Users result', this.state.data);
       })
       .catch(error => {
         console.log(error);
@@ -48,7 +47,7 @@ class UsersApp extends Component {
           isEmptyState: false 
         });
         // show the result
-        //console.log('Fetch album result', this.state.albumList);
+        console.log('Fetch albums result', this.state.albumList);
       })
       .catch(error => {
         console.log(error);
@@ -69,7 +68,7 @@ class UsersApp extends Component {
           isEmptyState: false 
         });
         // show the result
-        console.log('Fetch image result', this.state.imageList);
+        console.log('Fetch images result', this.state.imageList);
       })
       .catch(error => {
         console.log(error);
@@ -77,24 +76,21 @@ class UsersApp extends Component {
       });
   };
 
-  handleClick = (id) => {
+  handleUserClick = (id) => {
     this.viewAlbumsByUser(id);
     this.AlbumFetch(`https://jsonplaceholder.typicode.com/albums?userId=${id}`, {});
   }
 
   handleAlbumClick = (selectedAlbum) => {
-    //console.log('test', selectedAlbum);
     this.viewImagesByUser(selectedAlbum);
     this.ImageFetch(`https://jsonplaceholder.typicode.com/photos?albumId=${selectedAlbum}`, {});
   }
 
-  closeBtn = () =>  {
-    this.setState({isAddTripState: false});
-  }
-
-  closeGalleryBtn = () =>  {
-    this.setState({isAddGalleryTripState: false});
-  }
+  // handleImageClick = (selectedImage) => {
+  //   //console.log('test', selectedImage);
+  //   this.viewImagesByUser(selectedImage);
+  //   //this.ImageFetch(`https://jsonplaceholder.typicode.com/photos?albumId=${selectedImage}`, {});
+  // }
 
   viewAlbumsByUser = (id) => {
     // get user id via click
@@ -106,7 +102,7 @@ class UsersApp extends Component {
   }
 
   viewImagesByUser = (id) => {
-    // get user id via click
+    // get album id via click
     this.setState({
       ...this.state,
       selectedAlbum: id
@@ -114,13 +110,34 @@ class UsersApp extends Component {
     console.log('Album id clicked: ', id);
   }
 
+  // viewImageInAlbum = (id) => {
+  //   // get user id via click
+  //   this.setState({
+  //     ...this.state,
+  //     selectedImage: id
+  //   })
+  //   console.log('Album id clicked: ', id);
+  // }
+
+  closeBtn = () =>  {
+    this.setState({isAddTripState: false});
+  }
+
+  closeGalleryBtn = () =>  {
+    this.setState({isAddGalleryTripState: false});
+  }
+
+  // closeImageBtn = () =>  {
+  //   this.setState({isAddGalleryImageTripState: false});
+  // }
+
   componentDidMount() {
-    //console.log('Component Did Mount');
     this.UserFetch('https://jsonplaceholder.typicode.com/users', {});
   }
 
   render() {
     const { error, data, isLoaded } = this.state;
+    let SelectedState = this.state.selectedUser ? 'click-state' : 'base-state';
 
     if (error) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
     if (!isLoaded) return <div className="loader"></div>;
@@ -142,8 +159,8 @@ class UsersApp extends Component {
                 const {id, name, username, website} = item;
 
                 return(
-                  <li key={k} className={`user-item-${id}`} onClick={() => this.handleClick(id)} >
-                    <p>Name:<br/> {name} <br/> 
+                  <li key={k} className={`user-item-${id} ${SelectedState}`} onClick={() => this.handleUserClick(id)} >
+                    <p>Name:<br/> {name} id: {id}<br/> 
                     <span>username: <br/> {username}</span> <br/> 
                     <span>website:<br/> {website}</span> <br/></p>
                   </li>
@@ -160,7 +177,7 @@ class UsersApp extends Component {
                     const { id, userId, title} = album;
                     
                     return(
-                      <li key={k} className={`album-item-${id}`} onClick={() => this.handleAlbumClick(id)}>
+                      <li key={k} className={`album-item-${id} ${SelectedState}`} onClick={() => this.handleAlbumClick(id)}>
                         <p>Title: {title} <br/> 
                         <span>User ID: {userId}</span> <br/> 
                         <span>Album ID: {id}</span> <br/></p>
@@ -176,21 +193,20 @@ class UsersApp extends Component {
                 <div className="close" onClick={() => this.closeGalleryBtn()}>X</div>
                 <p>List of images from album</p>
                 <ul>
-                  {/* {imageList.map((image, k) => {
-                    //console.log('View: ', album);
-
-                    const {userId, id, title} = image;
+                  {this.state.imageList.map((image, k) => {
+      
+                    const {albumId, id, title, url, thumbnailUrl} = image;
 
                     return(
                       <li key={k} className={`album-item-${id}`}>
                         <p>Title: {title} <br/> 
-                        <span>User ID: {userId}</span> <br/> 
-                        <span>Album ID: {id}</span> <br/></p>
+                        <span>ID: {id}</span> <br/> 
+                        <span>Album ID: {albumId}</span> <br/>
+                        <img alt={"thumbnail"} src={thumbnailUrl} /> <br/>
+                        <span>Photo url: {url}</span> <br/></p>
                       </li>
                     )}
-                  )} */}
-
-                  <li>sssssssss-gallery-sssssssss</li>
+                  )}
                 </ul>
               </div>
             }
