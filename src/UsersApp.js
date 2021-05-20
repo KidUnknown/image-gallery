@@ -14,10 +14,12 @@ class UsersApp extends Component {
       albumList: [],
       imageList: [],
       selectedAlbum: null,
-      selectedUser: null
+      selectedUser: null,
+      selectedImage: null
     }
     this.handleUserClick = this.handleUserClick.bind(this);
     this.handleAlbumClick = this.handleAlbumClick.bind(this);
+    this.handleImageClick = this.handleImageClick.bind(this);
   }
 
   UserFetch = (URL) => {
@@ -26,7 +28,6 @@ class UsersApp extends Component {
       .then(response => response.json())
       .then(result => {
         this.setState({data: result, isLoaded: true});
-        console.log('Fetch Users result', this.state.data);
       })
       .catch(error => {
         console.log(error);
@@ -43,11 +44,9 @@ class UsersApp extends Component {
           ...this.state,
           albumList: result, 
           isLoaded: true, 
-          isAddTripState: true, 
+          isAddAlbumTripState: true, 
           isEmptyState: false 
         });
-        // show the result
-        console.log('Fetch albums result', this.state.albumList);
       })
       .catch(error => {
         console.log(error);
@@ -67,8 +66,26 @@ class UsersApp extends Component {
           isAddGalleryTripState: true,
           isEmptyState: false 
         });
-        // show the result
-        console.log('Fetch images result', this.state.imageList);
+      })
+      .catch(error => {
+        console.log(error);
+        this.setState({...this.state, isLoaded: false});
+      });
+  };
+
+  FetchSelectedImage = (URL) => {
+    this.setState({...this.state, isLoaded: true});
+    fetch(URL)
+      .then(response => response.json())
+      .then(result => {
+        this.setState({
+          ...this.state,
+          selectedImage: result, 
+          isLoaded: true,
+          isAddImageTripState: true,
+          isEmptyState: false 
+        });
+        console.log('Image feched: ', this.state.selectedImage);
       })
       .catch(error => {
         console.log(error);
@@ -82,54 +99,48 @@ class UsersApp extends Component {
   }
 
   handleAlbumClick = (selectedAlbum) => {
-    this.viewImagesByUser(selectedAlbum);
+    this.viewImagesByAlbum(selectedAlbum);
     this.ImageFetch(`https://jsonplaceholder.typicode.com/photos?albumId=${selectedAlbum}`, {});
   }
 
-  // handleImageClick = (selectedImage) => {
-  //   //console.log('test', selectedImage);
-  //   this.viewImagesByUser(selectedImage);
-  //   //this.ImageFetch(`https://jsonplaceholder.typicode.com/photos?albumId=${selectedImage}`, {});
-  // }
+  handleImageClick = (selectedImage) => {
+    this.viewImageInAlbum(selectedImage);
+    this.FetchSelectedImage(`https://jsonplaceholder.typicode.com/photos?id=${selectedImage}`, {});
+  }
 
   viewAlbumsByUser = (id) => {
-    // get user id via click
-    console.log('user id clicked: ', id);
     this.setState({
       ...this.state,
       selectedUser: id
     })
   }
 
-  viewImagesByUser = (id) => {
-    // get album id via click
+  viewImagesByAlbum = (id) => {
     this.setState({
       ...this.state,
       selectedAlbum: id
     })
-    console.log('Album id clicked: ', id);
   }
 
-  // viewImageInAlbum = (id) => {
-  //   // get user id via click
-  //   this.setState({
-  //     ...this.state,
-  //     selectedImage: id
-  //   })
-  //   console.log('Album id clicked: ', id);
-  // }
+  viewImageInAlbum = (id) => {
+    this.setState({
+      ...this.state,
+      selectedImage: id
+    })
+    console.log('Image: ', id);
+  }
 
-  closeBtn = () =>  {
-    this.setState({isAddTripState: false});
+  closeAlbumBtn = () =>  {
+    this.setState({isAddAlbumTripState: false});
   }
 
   closeGalleryBtn = () =>  {
     this.setState({isAddGalleryTripState: false});
   }
 
-  // closeImageBtn = () =>  {
-  //   this.setState({isAddGalleryImageTripState: false});
-  // }
+  closeImageBtn = () =>  {
+    this.setState({isAddImageTripState: false});
+  }
 
   componentDidMount() {
     this.UserFetch('https://jsonplaceholder.typicode.com/users', {});
@@ -137,7 +148,7 @@ class UsersApp extends Component {
 
   render() {
     const { error, data, isLoaded } = this.state;
-    let SelectedState = this.state.selectedUser ? 'click-state' : 'base-state';
+    //let SelectedState = this.state.selectedUser ? 'selected' : null;
 
     if (error) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
     if (!isLoaded) return <div className="loader"></div>;
@@ -155,11 +166,9 @@ class UsersApp extends Component {
           <div className="listed-users">
             <ul>
               {data.map((item, k) => {
-
                 const {id, name, username, website} = item;
-
                 return(
-                  <li key={k} className={`user-item-${id} ${SelectedState}`} onClick={() => this.handleUserClick(id)} >
+                  <li key={k} className={`user-item-${id}`} onClick={() => this.handleUserClick(id)} >
                     <p>Name:<br/> {name} id: {id}<br/> 
                     <span>username: <br/> {username}</span> <br/> 
                     <span>website:<br/> {website}</span> <br/></p>
@@ -168,16 +177,14 @@ class UsersApp extends Component {
               )}
             </ul>
 
-            {this.state.isAddTripState && 
+            {this.state.isAddAlbumTripState && 
               <div className="listed-albums">
-                <div className="close" onClick={() => this.closeBtn()}>X</div>
+                <div className="close" onClick={() => this.closeAlbumBtn()}>X</div>
                 <ul>
                   {this.state.albumList.map((album, k) => {
-          
                     const { id, userId, title} = album;
-                    
                     return(
-                      <li key={k} className={`album-item-${id} ${SelectedState}`} onClick={() => this.handleAlbumClick(id)}>
+                      <li key={k} className={`album-item-${id}`} onClick={() => this.handleAlbumClick(id)}>
                         <p>Title: {title} <br/> 
                         <span>User ID: {userId}</span> <br/> 
                         <span>Album ID: {id}</span> <br/></p>
@@ -194,16 +201,15 @@ class UsersApp extends Component {
                 <p>List of images from album</p>
                 <ul>
                   {this.state.imageList.map((image, k) => {
-      
                     const {albumId, id, title, url, thumbnailUrl} = image;
-
                     return(
-                      <li key={k} className={`album-item-${id}`}>
-                        <p>Title: {title} <br/> 
-                        <span>ID: {id}</span> <br/> 
-                        <span>Album ID: {albumId}</span> <br/>
-                        <img alt={"thumbnail"} src={thumbnailUrl} /> <br/>
-                        <span>Photo url: {url}</span> <br/></p>
+                      <li key={k} className={`album-item-${id}`} onClick={() => this.handleImageClick(id)}>
+                        <p><img alt={"thumbnail"} src={thumbnailUrl} /> <br/>
+                          <span>Album ID: {albumId}</span> <br/>
+                          <span>ID: {id}</span> <br/> 
+                          <span>Photo url: {url}</span> <br/>
+                          <span>Title: {title}</span>
+                        </p>
                       </li>
                     )}
                   )}
@@ -211,6 +217,25 @@ class UsersApp extends Component {
               </div>
             }
 
+            {this.state.isAddImageTripState && 
+              <div className={"image-wrapper"}>
+                <div className={"image-card"}>
+                  <div className="close" onClick={() => this.closeImageBtn()}>X</div>
+                  {this.state.selectedImage.map((image, k) => {
+                      const {albumId, id, title, url} = image;
+                      return(
+                        <div key={k} className={`image-${id}`}>
+                          <p>Title: {title} <br/> 
+                          <span>ID: {id}</span> <br/> 
+                          <span>Album ID: {albumId}</span> <br/>
+                          <img alt={"thumbnail"} src={url} /> <br/>
+                          <span>Photo url: {url}</span> <br/></p>
+                        </div>
+                      )}
+                    )}
+                </div>
+              </div>
+            }
           </div>
         </div>
 
