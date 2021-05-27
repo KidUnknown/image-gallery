@@ -204,7 +204,7 @@ class UsersApp extends Component {
                     const {albumId, id, title, url, thumbnailUrl} = image;
                     return(
                       <li key={k} className={`album-item-${id}`} onClick={() => this.handleImageClick(id)}>
-                        <p><img alt={"thumbnail"} src={thumbnailUrl} /> <br/>
+                        <p><img alt="thumbnail" src={thumbnailUrl} /> <br/>
                           <span>Album ID: {albumId}</span> <br/>
                           <span>ID: {id}</span> <br/> 
                           <span>Photo url: {url}</span> <br/>
@@ -218,18 +218,20 @@ class UsersApp extends Component {
             }
 
             {this.state.isAddImageTripState && 
-              <div className={"image-wrapper"}>
-                <div className={"image-card"}>
+              <div className="image-wrapper">
+                <div className="image-card">
                   <div className="close" onClick={() => this.closeImageBtn()}>X</div>
                   {this.state.selectedImage.map((image, k) => {
                       const {albumId, id, title, url} = image;
                       return(
                         <div key={k} className={`image-${id}`}>
-                          <p>Title: {title} <br/> 
-                          <span>ID: {id}</span> <br/> 
-                          <span>Album ID: {albumId}</span> <br/>
-                          <img alt={"thumbnail"} src={url} /> <br/>
-                          <span>Photo url: {url}</span> <br/></p>
+                          <p>
+                            <img alt="thumbnail" src={url} /> <br/>
+                            Title: {title} <br/> 
+                            <span>ID: {id}</span> <br/> 
+                            <span>Album ID: {albumId}</span> <br/>
+                            <span>Photo url: {url}</span> <br/>
+                          </p>
                         </div>
                       )}
                     )}
