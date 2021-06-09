@@ -1,16 +1,16 @@
 import React from 'react';
 import useFetch from './Services/_UseFetch';
 
-function GalleryApp() {
+const Photos = ({isLoaded, themeStyles, resourceType}) => {
 
-  const {items, error} = useFetch('https://jsonplaceholder.typicode.com/photos', {});
+  const {items, error} = useFetch(`https://jsonplaceholder.typicode.com/${resourceType}`, {});
 
   if (error) return <div className="error"><h3>Error:</h3> <p>{error.message}</p></div>;
-  if (!items) return <div className="loader"></div>;
+  if (!isLoaded) return <div className="loader"></div>;
 
   return (
-    <div className="gallery-app">
-      <div className="gallery-app__body">
+    <div className="photo" style={themeStyles}>
+      <div className="photo__body">
         <div className="listed-images">
           <ul>
             {items.map(item => {
@@ -20,7 +20,6 @@ function GalleryApp() {
                   <span>Album: {albumId}</span> <br/> <span>item: {id}</span>
                   <img src={thumbnailUrl} alt={title} data-uri-large={url} className="thumb" />
                 </li>
-
               )}
             )}
           </ul>
@@ -30,4 +29,4 @@ function GalleryApp() {
   );
 }
 
-export default GalleryApp;
+export default Photos;
