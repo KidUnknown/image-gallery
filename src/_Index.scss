@@ -32,3 +32,32 @@ h1, h2, h3, h4, h5 {
 p, span {
   color: var(--text-primary);
 }
+
+a:link {
+  color: white;
+
+  &:hover {
+    color: white;
+    background-color: var(--bg-secondary);
+  }
+}
+
+nav {
+  ul {
+    display: flex;
+    flex-direction: row;
+
+    li {
+      margin: 15px 30px;
+      list-style: none;
+
+      a {
+        font-size: 2em;
+        color: var(--text-primary);
+        text-decoration: none;
+        padding: 5px 15px
+      }
+    }
+  }
+
+}

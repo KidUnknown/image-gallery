@@ -1,15 +1,17 @@
 
 
 const fetchDataWithFetchAPI = (URL) => {
+
   this.setState({...this.state, isLoaded: true});
+
   fetch(URL)
     .then(response => response.json())
     .then(result => {
-        this.setState({data: result, isLoaded: false})
+      this.setState({data: result, isLoaded: false})
     })
     .catch(e => {
-        console.log(e);
-        this.setState({...this.state, isLoaded: false});
+      console.log(e);
+      this.setState({...this.state, isLoaded: false});
     });
 };
 
